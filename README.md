@@ -1,4 +1,6 @@
 # Group-13-python-advance-cohort-28
+![Tests](https://github.com/Ajayikx/Group-13-Digital-Quiz-App-python-advance-cohort-28-/actions/workflows/python-app.yml/badge.svg)
+
 #  Digital Quiz App  
 
 A simple digital quiz application built with **Python**.  
