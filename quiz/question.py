@@ -1,24 +1,48 @@
-from abc import ABC, abstractmethod
+# quiz/question.py
 
-class Question(ABC):
-    """Base class for all quiz questions."""
-
-    def __init__(self, text, answer):
+class Question:
+    def __init__(self, text: str):
+        """
+        Base class for all question types.
+        :param text: The question text
+        """
         self.text = text
-        self.answer = answer
 
-    @abstractmethod
-    def is_correct(self, user_answer):
-        """Check if the user's answer is correct."""
-        pass
+    def is_correct(self, answer):
+        """
+        Check if the provided answer is correct.
+        Subclasses must implement this method.
+        """
+        raise NotImplementedError("Subclasses must implement this method")
 
 
 class MultipleChoiceQuestion(Question):
-    """A question with multiple choice answers."""
+    def __init__(self, text: str, choices: list[str], answer: str):
+        """
+        A multiple-choice question.
+        :param text: The question text
+        :param choices: List of possible answers
+        :param answer: The correct answer (must be in choices)
+        """
+        super().__init__(text)
+        self.choices = choices
+        self.answer = answer
 
-    def __init__(self, text, choices, answer):
-        super().__init__(text, answer)
-        self.choices = choices  # list of possible answers
+    def is_correct(self, response: str) -> bool:
+        """Return True if the response matches the correct answer."""
+        return response == self.answer
 
-    def is_correct(self, user_answer):
-        return user_answer.strip().lower() == self.answer.strip().lower()
+
+class TrueFalseQuestion(Question):
+    def __init__(self, text: str, answer: bool):
+        """
+        A true/false question.
+        :param text: The question text
+        :param answer: The correct answer (True or False)
+        """
+        super().__init__(text)
+        self.answer = answer
+
+    def is_correct(self, response: bool) -> bool:
+        """Return True if the response matches the correct boolean answer."""
+        return response is self.answer

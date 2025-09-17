@@ -21,3 +21,12 @@ def test_multiple_choice_incorrect_answer():
         answer="4"
     )
     assert q.is_correct("5") is False
+    
+def test_multiple_choice_incorrect_answer():
+    q = MultipleChoiceQuestion(
+        text="What is the capital of Nigeria?",
+        choices=["Lagos", "Abuja", "Kano", "Ibadan"],
+        answer="Abuja"
+    )
+    assert q.is_correct("Lagos") is False
+    assert q.is_correct("Abuja") is True
