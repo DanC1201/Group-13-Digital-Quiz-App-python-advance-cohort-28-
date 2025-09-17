@@ -21,7 +21,7 @@ The app supports multiple-choice and true/false questions, with automatic scorin
 
 ##  Project Structure  
 
-- Group-13-Digital-Quiz-App-python-advance-cohort-28-/
+## Group-13-Digital-Quiz-App-python-advance-cohort-28-/
 - │── quiz/
 - │ └── question.py # Core question classes
 - │── tests/
@@ -53,10 +53,10 @@ Make sure you have **Python 3.10+** and **pipenv** installed.
 
 ##  Contributing
 
--1.Fork the repository
--2.Create a new branch (git checkout -b feature-name)
--3.Commit changes (git commit -m "Add feature name")
--4.Push to your branch (git push origin feature-name)
--5.Open a Pull Request
+- 1.Fork the repository
+- 2.Create a new branch (git checkout -b feature-name)
+- 3.Commit changes (git commit -m "Add feature name")
+- 4.Push to your branch (git push origin feature-name)
+- 5.Open a Pull Request
 
 
