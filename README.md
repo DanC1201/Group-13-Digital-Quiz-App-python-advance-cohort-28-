@@ -21,16 +21,16 @@ The app supports multiple-choice and true/false questions, with automatic scorin
 
 ##  Project Structure  
 
-Group-13-Digital-Quiz-App-python-advance-cohort-28-/
--│── quiz/
--│ └── question.py # Core question classes
--│── tests/
--│ ├── test_questions.py # Tests for MultipleChoiceQuestion
--│ └── test_truefalse.py # Tests for TrueFalseQuestion
--│── Pipfile # Dependency management
--│── Pipfile.lock
--│── main.py # Entry point (to be expanded with UI)
--│── README.md # Project documentation
+- Group-13-Digital-Quiz-App-python-advance-cohort-28-/
+- │── quiz/
+- │ └── question.py # Core question classes
+- │── tests/
+- │├── test_questions.py # Tests for MultipleChoiceQuestion
+- │ └── test_truefalse.py # Tests for TrueFalseQuestion
+- │── Pipfile # Dependency management
+- │── Pipfile.lock
+- │── main.py # Entry point (to be expanded with UI)
+- │── README.md # Project documentation
 
 
 ---
