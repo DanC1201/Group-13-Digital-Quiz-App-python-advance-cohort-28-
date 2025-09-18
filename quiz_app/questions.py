@@ -1,8 +1,23 @@
 import random
 import json
 import os
+import csv
 
 USER_QUESTIONS_FILE = "user_questions.json"
+CSV_QUESTIONS_FILE = "csv_questions.csv"
+
+def load_csv_questions():
+    questions = []
+    if os.path.exists(CSV_QUESTIONS_FILE):
+        with open(CSV_QUESTIONS_FILE, newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                prompt = row['prompt'].strip()
+                answer = row['answer'].strip()
+                options = [opt.strip() for opt in row['options'].split(',')]
+                questions.append(MultipleChoiceQuestion(prompt, options, answer))
+    return questions
+
 
 class Question:
     def __init__(self, prompt, answer):
@@ -86,9 +101,11 @@ def load_user_questions():
 
 def get_random_questions(n=30):
     user_questions = load_user_questions()
-    questions = SAMPLE_QUESTIONS + user_questions
+    csv_questions = load_csv_questions()
+    questions = SAMPLE_QUESTIONS + user_questions + csv_questions
     # Repeat sample questions if not enough
     while len(questions) < n:
         questions += SAMPLE_QUESTIONS
     random.shuffle(questions)
+
     return questions[:n]
