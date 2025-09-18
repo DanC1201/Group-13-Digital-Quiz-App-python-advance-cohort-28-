@@ -9,12 +9,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
@@ -26,8 +27,7 @@ jobs:
         run: pip install pipenv
 
       - name: Install dependencies
-        run: |
-          pipenv install --dev --deploy --ignore-pipfile
+        run: pipenv install --dev --deploy --ignore-pipfile
 
-      - name: Run pytest
-        run: pipenv run pytest -q
+      - name: Run tests
+        run: pipenv run pytest tests/
