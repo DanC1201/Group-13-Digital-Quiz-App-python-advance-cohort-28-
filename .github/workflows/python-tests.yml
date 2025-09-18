@@ -1,29 +1,33 @@
-name: CI - Run Tests
+name: Python Tests
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
+
 jobs:
   test:
-    runs-on: ubuntu-22.02
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ "3.10", "3.11", "3.12" ]
+        python-version: [3.10, 3.11, 3.12]  # multiple versions for robustness
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install pipenv
+        run: pip install pipenv
+
       - name: Install dependencies
         run: |
-         pipenv sync --dev
+          pipenv install --dev --deploy --ignore-pipfile
 
-      - name: Run tests
-        run: pipenv run pytest
+      - name: Run tests with pytest
+        run: |
+          pipenv run pytest tests/ --maxfail=1 --disable-warnings -q
