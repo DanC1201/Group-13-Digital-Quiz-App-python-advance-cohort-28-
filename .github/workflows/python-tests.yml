@@ -14,10 +14,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Read Python version from Pipfile.lock
+      - name: Extract Python version
+        id: python_version
+        run: |
+          PYTHON_VERSION=$(jq -r '.default."python_version"' Pipfile.lock)
+          echo "python_version=$PYTHON_VERSION" >> $GITHUB_OUTPUT
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: ${{ steps.python_version.outputs.python_version }}
+
+      - name: Cache pipenv
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.local/share/virtualenvs
+            ~/.cache/pip
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
 
       - name: Install pipenv
         run: pip install pipenv
@@ -25,5 +42,5 @@ jobs:
       - name: Install dependencies
         run: pipenv install --dev --deploy --ignore-pipfile
 
-      - name: Run tests
-        run: pipenv run pytest
+      - name: Run tests with coverage
+        run: pipenv run pytest --cov=.

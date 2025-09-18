@@ -8,23 +8,39 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'   # use the same version you run locally
+      # Read Python version from Pipfile.lock
+      - name: Extract Python version
+        id: python_version
+        run: |
+          PYTHON_VERSION=$(jq -r '.default."python_version"' Pipfile.lock)
+          echo "python_version=$PYTHON_VERSION" >> $GITHUB_OUTPUT
 
-    - name: Install pipenv
-      run: pip install pipenv
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ steps.python_version.outputs.python_version }}
 
-    - name: Install dependencies
-      run: pipenv install --dev
+      - name: Cache pipenv
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.local/share/virtualenvs
+            ~/.cache/pip
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
 
-    - name: Run tests
-      run: pipenv run pytest
+      - name: Install pipenv
+        run: pip install pipenv
+
+      - name: Install dependencies
+        run: pipenv install --dev --deploy --ignore-pipfile
+
+      - name: Run tests with coverage
+        run: pipenv run pytest --cov=.
