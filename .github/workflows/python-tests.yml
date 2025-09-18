@@ -9,12 +9,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     strategy:
       matrix:
-        python-version: [3.10, 3.11, 3.12]  # multiple versions for robustness
+        python-version: [ "3.10", "3.12" ]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -24,10 +27,16 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
 
-      - name: Install dependencies
-        run: |
-          pipenv install --dev --deploy --ignore-pipfile
+      - name: Cache pipenv virtualenv
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
 
-      - name: Run tests with pytest
-        run: |
-          pipenv run pytest tests/ --maxfail=1 --disable-warnings -q
+      - name: Install dependencies
+        run: pipenv sync --dev
+
+      - name: Run tests
+        run: pipenv run pytest
