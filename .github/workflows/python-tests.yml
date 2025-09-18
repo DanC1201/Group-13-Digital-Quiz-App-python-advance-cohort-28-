@@ -5,42 +5,26 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11", "3.12" ]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Read Python version from Pipfile.lock
-      - name: Extract Python version
-        id: python_version
-        run: |
-          PYTHON_VERSION=$(jq -r '.default."python_version"' Pipfile.lock)
-          echo "python_version=$PYTHON_VERSION" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: ${{ steps.python_version.outputs.python_version }}
-
-      - name: Cache pipenv
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.local/share/virtualenvs
-            ~/.cache/pip
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pipenv-
-
-      - name: Install pipenv
-        run: pip install pipenv
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: pipenv install --dev --deploy --ignore-pipfile
+        run: |
+          pip install pipenv
+          pipenv install --dev --deploy
 
-      - name: Run tests with coverage
-        run: pipenv run pytest --cov=.
+      - name: Run tests
+        run: pipenv run pytest
