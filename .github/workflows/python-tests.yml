@@ -1,29 +1,33 @@
-name: Python Tests
+name: CI (Python Tests)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: ${{ matrix.python-version }}
 
       - name: Install pipenv
         run: pip install pipenv
 
       - name: Install dependencies
-        run: pipenv install --dev --deploy --ignore-pipfile
+        run: |
+          pipenv install --dev --deploy --ignore-pipfile
 
-      - name: Run tests
-        run: pipenv run pytest tests/
+      - name: Run pytest
+        run: pipenv run pytest -q
