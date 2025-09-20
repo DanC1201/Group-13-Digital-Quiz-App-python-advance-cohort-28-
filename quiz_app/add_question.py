@@ -1,76 +1,139 @@
-import tkinter as tk
-from tkinter import messagebox
-from questions import MultipleChoiceQuestion, TrueFalseQuestion, FillInTheBlankQuestion
+import customtkinter as ctk
 import json
 import os
 
 USER_QUESTIONS_FILE = "user_questions.json"
 
+
 class AddQuestionWindow:
-    def __init__(self, master, on_add):
+    def __init__(self, master):
         self.master = master
-        self.on_add = on_add
-        master.title("Add New Question")
-        master.geometry("400x400")
+        self.master.title("Add a Question")
+        self.master.geometry("600x650")
 
-        tk.Label(master, text="Question Type:").pack(pady=5)
-        self.qtype_var = tk.StringVar(value="Multiple Choice")
-        types = ["Multiple Choice", "True/False", "Fill in the Blank"]
-        for t in types:
-            tk.Radiobutton(master, text=t, variable=self.qtype_var, value=t, command=self.update_type).pack(anchor='w')
+        # Frame
+        frame = ctk.CTkFrame(master, corner_radius=15)
+        frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-        tk.Label(master, text="Prompt:").pack(pady=5)
-        self.prompt_entry = tk.Entry(master, width=50)
-        self.prompt_entry.pack()
+        # Title
+        ctk.CTkLabel(frame, text="Add a New Question", font=("Arial", 20, "bold")).pack(pady=15)
 
-        self.options_label = tk.Label(master, text="Options (comma separated):")
-        self.options_entry = tk.Entry(master, width=50)
-        self.options_label.pack(pady=5)
-        self.options_entry.pack()
+        # Dropdown for question type
+        self.q_type = ctk.StringVar(value="Multiple Choice")
+        ctk.CTkLabel(frame, text="Select Question Type:", font=("Arial", 14)).pack(pady=(10, 5))
+        self.type_menu = ctk.CTkOptionMenu(
+            frame,
+            values=["Multiple Choice", "True/False", "Fill in the Blank"],
+            variable=self.q_type,
+            command=self.update_fields
+        )
+        self.type_menu.pack(pady=10)
 
-        tk.Label(master, text="Answer:").pack(pady=5)
-        self.answer_entry = tk.Entry(master, width=50)
-        self.answer_entry.pack()
+        # Prompt entry
+        ctk.CTkLabel(frame, text="Question Prompt:", font=("Arial", 14)).pack(pady=(15, 5))
+        self.prompt_entry = ctk.CTkEntry(frame, width=400)
+        self.prompt_entry.pack(pady=5)
 
-        tk.Button(master, text="Add Question", command=self.add_question).pack(pady=20)
-        self.update_type()
+        # Options / Answer area
+        self.options_frame = ctk.CTkFrame(frame)
+        self.options_frame.pack(pady=10)
 
-    def update_type(self):
-        if self.qtype_var.get() == "Multiple Choice":
-            self.options_label.pack(pady=5)
-            self.options_entry.pack()
-        else:
-            self.options_label.pack_forget()
-            self.options_entry.pack_forget()
+        self.update_fields("Multiple Choice")
 
-    def add_question(self):
-        qtype = self.qtype_var.get()
+        # Save button
+        self.save_button = ctk.CTkButton(frame, text="Save Question", width=200, command=self.save_question)
+        self.save_button.pack(pady=20)
+
+        # Status label (feedback after save)
+        self.status_label = ctk.CTkLabel(frame, text="", font=("Arial", 12))
+        self.status_label.pack(pady=5)
+
+    # ----------------------------
+    # Field Updates
+    # ----------------------------
+    def update_fields(self, choice):
+        for widget in self.options_frame.winfo_children():
+            widget.destroy()
+
+        if choice == "Multiple Choice":
+            self.option_entries = []
+            for i in range(4):
+                entry = ctk.CTkEntry(self.options_frame, width=300, placeholder_text=f"Option {i+1}")
+                entry.pack(pady=3)
+                self.option_entries.append(entry)
+
+            self.answer_entry = ctk.CTkEntry(self.options_frame, width=300, placeholder_text="Correct Answer")
+            self.answer_entry.pack(pady=(10, 5))
+
+        elif choice == "True/False":
+            ctk.CTkLabel(self.options_frame, text="Answer (True/False):", font=("Arial", 14)).pack(pady=5)
+            self.answer_entry = ctk.CTkOptionMenu(self.options_frame, values=["True", "False"])
+            self.answer_entry.pack(pady=5)
+
+        elif choice == "Fill in the Blank":
+            self.answer_entry = ctk.CTkEntry(self.options_frame, width=300, placeholder_text="Correct Answer")
+            self.answer_entry.pack(pady=5)
+
+    # ----------------------------
+    # Save to JSON
+    # ----------------------------
+    def save_question(self):
         prompt = self.prompt_entry.get().strip()
-        answer = self.answer_entry.get().strip()
-        if not prompt or not answer:
-            messagebox.showerror("Error", "Prompt and answer are required!")
-            return
-        if qtype == "Multiple Choice":
-            options = [o.strip() for o in self.options_entry.get().split(",") if o.strip()]
-            if len(options) < 2:
-                messagebox.showerror("Error", "At least two options required for multiple choice.")
-                return
-            q = {"type": "mc", "prompt": prompt, "options": options, "answer": answer}
-        elif qtype == "True/False":
-            q = {"type": "tf", "prompt": prompt, "answer": answer}
-        else:
-            q = {"type": "fib", "prompt": prompt, "answer": answer}
-        self.save_user_question(q)
-        self.on_add()
-        messagebox.showinfo("Success", "Question added!")
-        self.master.destroy()
+        q_type = self.q_type.get()
+        data = {}
 
-    def save_user_question(self, q):
+        if not prompt:
+            self.status_label.configure(text="⚠️ Please enter a question prompt!", text_color="red")
+            return
+
+        if q_type == "Multiple Choice":
+            options = [e.get().strip() for e in self.option_entries if e.get().strip()]
+            answer = self.answer_entry.get().strip()
+            if not options or not answer:
+                return
+            data = {"type": "mc", "prompt": prompt, "options": options, "answer": answer}
+
+        elif q_type == "True/False":
+            answer = self.answer_entry.get().strip()
+            data = {"type": "tf", "prompt": prompt, "answer": answer}
+
+        elif q_type == "Fill in the Blank":
+            answer = self.answer_entry.get().strip()
+            if not answer:
+                return
+            data = {"type": "fib", "prompt": prompt, "answer": answer}
+
+        # Save to file
+        questions = []
         if os.path.exists(USER_QUESTIONS_FILE):
             with open(USER_QUESTIONS_FILE, "r") as f:
-                data = json.load(f)
-        else:
-            data = []
-        data.append(q)
+                try:
+                    questions = json.load(f)
+                except json.JSONDecodeError:
+                    questions = []
+
+        questions.append(data)
+
         with open(USER_QUESTIONS_FILE, "w") as f:
-            json.dump(data, f, indent=2)
+            json.dump(questions, f, indent=4)
+
+        # Confirmation
+        self.status_label.configure(text="✅ Question Saved!", text_color="green")
+
+        self.prompt_entry.delete(0, "end")
+        if q_type == "Multiple Choice":
+            for entry in self.option_entries:
+                entry.delete(0, "end")
+        self.answer_entry.delete(0, "end")
+
+
+# ----------------------------
+# Test run
+# ----------------------------
+if __name__ == "__main__":
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("blue")
+
+    root = ctk.CTk()
+    AddQuestionWindow(root)
+    root.mainloop()

@@ -1,0 +1,55 @@
+[
+    {
+        "type": "mc",
+        "prompt": "Who has the most Ballon d'ors",
+        "options": [
+            "Messi",
+            "Ronaldo",
+            "Neymar",
+            "Pele"
+        ],
+        "answer": "Messi"
+    },
+    {
+        "type": "mc",
+        "prompt": "What color is London?",
+        "options": [
+            "Red",
+            "Blue",
+            "White",
+            "Claret & Blue"
+        ],
+        "answer": "Blue"
+    },
+    {
+        "type": "mc",
+        "prompt": "what is 5+5",
+        "options": [
+            "3",
+            "4",
+            "8",
+            "10"
+        ],
+        "answer": "10"
+    },
+    {
+        "type": "mc",
+        "prompt": "gh",
+        "options": [
+            "v",
+            "b",
+            "l",
+            "y"
+        ],
+        "answer": "b"},
+        {
+    "type": "tf",
+    "prompt": "Light travels faster than sound.",
+    "answer": "True"
+  },
+  {
+    "type": "fib",
+    "prompt": "The chemical symbol for water is ______.",
+    "answer": "H2O"
+    }
+]

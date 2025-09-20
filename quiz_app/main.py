@@ -1,89 +1,87 @@
-import tkinter as tk
-import os
-import json
-from registration_login import RegistrationWindow
+import customtkinter as ctk
+from tkinter import messagebox
 from quiz import QuizWindow
-from score import ScoreWindow
-from registration_login import LoginWindow
-
-
+from registration_login import RegistrationWindow, LoginWindow
 from add_question import AddQuestionWindow
+from score import ScoreHistoryWindow
 
-SCORE_FILE = "user_scores.json"
-class QuizApp:
-    def __init__(self, root):
-        self.root = root
-        self.show_main_menu()
 
-    def show_main_menu(self):
-        self.clear_window()
-        frame = tk.Frame(self.root)
-        frame.pack(expand=True)
-        tk.Label(frame, text="Welcome to the Quiz App!", font=("Arial", 18)).pack(pady=20)
-        tk.Button(frame, text="Register & Start Quiz", command=self.show_registration, width=25).pack(pady=10)
-        tk.Button(frame, text="Add a Question", command=self.show_add_question, width=25).pack(pady=10)
-        tk.Button(frame, text="Login & Start Quiz", command=self.show_login, width=25).pack(pady=10)
-        tk.Button(frame, text="View Score History", command=self.show_score_history, width=25).pack(pady=10) # Button to display score history
+# ----------------------------
+# Main Menu
+# ----------------------------
+class MainMenu:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Quiz App")
+        self.master.geometry("600x400")
 
-    def show_registration(self):
-        self.clear_window()
-        self.registration = RegistrationWindow(self.root, self.start_quiz)
+        # Title
+        title_label = ctk.CTkLabel(master, text="Welcome to the Quiz App!", font=("Arial", 22, "bold"))
+        title_label.pack(pady=25)
 
-    def show_add_question(self):
-        win = tk.Toplevel(self.root)
-        AddQuestionWindow(win, self.on_question_added)
+        # Buttons
+        ctk.CTkButton(master, text="Register & Start Quiz", command=self.open_registration, width=200).pack(pady=10)
+        ctk.CTkButton(master, text="Login & Start Quiz", command=self.open_login, width=200).pack(pady=10)
+        ctk.CTkButton(master, text="Add a Question", command=self.open_add_question, width=200).pack(pady=10)
+        ctk.CTkButton(master, text="View Score History", command=self.open_score_history, width=200).pack(pady=10)
 
-    def on_question_added(self):
-        # Optionally show a message or refresh
-        pass
+        # Exit button
+        ctk.CTkButton(master, text="Exit", command=self.master.quit, fg_color="red", hover_color="darkred", width=200).pack(pady=20)
+
+    # ------------------------
+    # Button Actions
+    # ------------------------
+    def open_registration(self):
+        self.master.withdraw()  # hide main menu
+        reg_root = ctk.CTkToplevel(self.master)
+        RegistrationWindow(reg_root, self.start_quiz)
+
+    def open_login(self):
+        self.master.withdraw()  # hide main menu
+        login_root = ctk.CTkToplevel(self.master)
+        LoginWindow(login_root, self.start_quiz)
+
+    def open_add_question(self):
+        self.master.withdraw()  # hide main menu
+        add_q_root = ctk.CTkToplevel(self.master)
+
+        def on_close():
+            add_q_root.destroy()
+            self.master.deiconify()  # show menu again
+
+        add_q_root.protocol("WM_DELETE_WINDOW", on_close)
+        self.add_question_window = AddQuestionWindow(add_q_root)
+
+    def open_score_history(self):
+        self.master.withdraw()
+        score_root = ctk.CTkToplevel(self.master)
+
+        def on_close():
+            score_root.destroy()
+            self.master.deiconify()
+        score_root.protocol("WM_DELETE_WINDOW", on_close)
+        ScoreHistoryWindow(score_root, on_close)
+
 
     def start_quiz(self, user_name):
-        self.clear_window()
-        self.quiz = QuizWindow(self.root, user_name, self.show_score)
+        # at this point, login/registration windows are destroyed
+        # now destroy main menu completely and start quiz
+        self.master.destroy()
+        quiz_root = ctk.CTk()
+        QuizWindow(quiz_root, user_name, self.show_results)
+        quiz_root.mainloop()
 
-    def show_score(self, score, total, user_answers):
-        self.clear_window()
-        self.score = ScoreWindow(self.root, score, total, user_answers, self.quiz.user_name)
-
-    def clear_window(self):
-        for widget in self.root.winfo_children():
-            widget.destroy()
-
-    def show_login(self):
-        self.clear_window()
-        self.login = LoginWindow(self.root, self.start_quiz)
-
-    def show_score_history(self):          # Method to display score history
-        self.clear_window()
-        frame = tk.Frame(self.root)        # Creates a new frame to hold the score history UI
-        frame.pack(expand=True)
-        tk.Label(frame, text="Score History", font=("Arial", 16)).pack(pady=10) # Title label
-
-        if not os.path.exists(SCORE_FILE)or os.path.getsize(SCORE_FILE) == 0:  # If the score file doesn't exist, show a message and exit
-            tk.Label(frame, text="No scores recorded yet.").pack()
-            return
-
-        with open(SCORE_FILE, "r") as f:    # Loads the scores from the JSON file
-            scores = json.load(f)
-
-        text = tk.Text(frame, height=15, width=50)   # Creates a text widget to display the score entries
-        text.pack()
-        text.insert(tk.END, "User | Score | Total\n")
-        text.insert(tk.END, "-" * 30 + "\n")
-
-        for entry in scores:                       # Loops through each score entry and displays it
-            text.insert(tk.END, f"{entry['user']} | {entry['score']} | {entry['total']}\n")
-        text.config(state=tk.DISABLED)
-
-        tk.Button(frame, text="Back to Menu", command=self.show_main_menu).pack(pady=10) # Goes back to main menu
+    def show_results(self, score, total, answers):
+        messagebox.showinfo("Quiz Finished", f"You scored {score}/{total}")
 
 
-
-def main():
-    root = tk.Tk()
-    root.geometry("500x400")
-    app = QuizApp(root)
-
-    root.mainloop()
+# ----------------------------
+# Run App
+# ----------------------------
 if __name__ == "__main__":
-    main()
+    ctk.set_appearance_mode("dark")   # "light" or "dark"
+    ctk.set_default_color_theme("blue")
+
+    root = ctk.CTk()
+    MainMenu(root)
+    root.mainloop()

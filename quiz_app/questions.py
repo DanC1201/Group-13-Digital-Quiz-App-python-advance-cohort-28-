@@ -82,6 +82,73 @@ SAMPLE_QUESTIONS = [
     MultipleChoiceQuestion("What is the tallest mountain in the world?", ["K2", "Mount Everest", "Kangchenjunga", "Lhotse"], "Mount Everest"),
     MultipleChoiceQuestion("Which organ pumps blood through the body?", ["Liver", "Heart", "Lungs", "Kidney"], "Heart"),
     MultipleChoiceQuestion("What is the freezing point of water?", ["0°C", "32°C", "100°C", "-10°C"], "0°C"),
+
+    # TF
+    TrueFalseQuestion("The Earth is flat.", "False"),
+    TrueFalseQuestion("The Sun is a star.", "True"),
+    TrueFalseQuestion("The Earth revolves around the Sun.", "True"),
+    TrueFalseQuestion("There are 26 letters in the English alphabet.", "True"),
+    TrueFalseQuestion("The human body has four lungs.", "False"),
+    TrueFalseQuestion("The Great Wall of China is located in India.", "False"),
+    TrueFalseQuestion("Sharks are mammals.", "False"),
+    TrueFalseQuestion("Lightning never strikes the same place twice.", "False"),
+    TrueFalseQuestion("The Pacific Ocean is larger than the Atlantic Ocean.", "True"),
+    TrueFalseQuestion("Bats are blind.", "False"),
+    TrueFalseQuestion("The chemical symbol for gold is Au.", "True"),
+    TrueFalseQuestion("Mount Everest is the tallest mountain in the world.", "True"),
+    TrueFalseQuestion("An octopus has three hearts.", "True"),
+    TrueFalseQuestion("Penguins can fly.", "False"),
+    TrueFalseQuestion("The capital of Australia is Sydney.", "False"),  # It's Canberra
+    TrueFalseQuestion("Water boils at 100 degrees Celsius.", "True"),
+    TrueFalseQuestion("The Moon is a planet.", "False"),
+    TrueFalseQuestion("Venus is the closest planet to the Sun.", "False"),  # Mercury is
+    TrueFalseQuestion("Bananas grow on trees.", "False"),  # They grow on plants
+    TrueFalseQuestion("The human skeleton is made up of more than 200 bones.", "True"),
+    TrueFalseQuestion("Spiders have six legs.", "False"),  # They have eight
+    TrueFalseQuestion("The Amazon is the longest river in the world.", "False"),  # Nile is
+    TrueFalseQuestion("The human brain is inside the rib cage.", "False"),
+    TrueFalseQuestion("The Statue of Liberty was a gift from France to the USA.", "True"),
+    TrueFalseQuestion("Dolphins are fish.", "False"),  # They're mammals
+    TrueFalseQuestion("The Sahara is the largest hot desert in the world.", "True"),
+    TrueFalseQuestion("The Sun rises in the west and sets in the east.", "False"),
+    TrueFalseQuestion("Sound travels faster in water than in air.", "True"),
+    TrueFalseQuestion("A leap year has 366 days.", "True"),
+    TrueFalseQuestion("The capital of Italy is Rome.", "True"),
+
+
+    # FIB
+    FillInTheBlankQuestion("______ is the largest ocean on Earth.", "Pacific"),
+    FillInTheBlankQuestion("The process of converting water vapor into liquid is called ______.", "Condensation"),
+    FillInTheBlankQuestion("The chemical symbol for water is ______.", "H2O"),
+    FillInTheBlankQuestion("The largest ocean on Earth is the ______ Ocean.", "Pacific"),
+    FillInTheBlankQuestion("The fastest land animal is the ______.", "Cheetah"),
+    FillInTheBlankQuestion("The currency used in the United States is the ______.", "Dollar"),
+    FillInTheBlankQuestion("The first man to walk on the Moon was ______ Armstrong.", "Neil"),
+    FillInTheBlankQuestion("The Great Wall of ______ is visible from space.", "China"),
+    FillInTheBlankQuestion("The process by which plants make food is called ______.", "Photosynthesis"),
+    FillInTheBlankQuestion("The tallest mountain in the world is Mount ______.", "Everest"),
+    FillInTheBlankQuestion("The freezing point of water is ______ degrees Celsius.", "0"),
+    FillInTheBlankQuestion("The smallest prime number is ______.", "2"),
+    FillInTheBlankQuestion("The currency of Japan is the ______.", "Yen"),
+    FillInTheBlankQuestion("The longest river in the world is the ______.", "Nile"),
+    FillInTheBlankQuestion("The study of stars and planets is called ______.", "Astronomy"),
+    FillInTheBlankQuestion("The largest desert in the world is the ______ Desert.", "Sahara"),
+    FillInTheBlankQuestion("The gas that humans need to survive is ______.", "Oxygen"),
+    FillInTheBlankQuestion("The scientist who proposed the theory of relativity is ______.", "Einstein"),
+    FillInTheBlankQuestion("The country famous for the Eiffel Tower is ______.", "France"),
+    FillInTheBlankQuestion("The chemical symbol for water is ______.", "H2O"),
+    FillInTheBlankQuestion("The fastest land animal is the ______.", "Cheetah"),
+    FillInTheBlankQuestion("The first man to walk on the Moon was ______ Armstrong.", "Neil"),
+    FillInTheBlankQuestion("The process by which plants make food is called ______.", "Photosynthesis"),
+    FillInTheBlankQuestion("The tallest mountain in the world is Mount ______.", "Everest"),
+    FillInTheBlankQuestion("The freezing point of water is ______ degrees Celsius.", "0"),
+    FillInTheBlankQuestion("The smallest prime number is ______.", "2"),
+    FillInTheBlankQuestion("The currency of Japan is the ______.", "Yen"),
+    FillInTheBlankQuestion("The longest river in the world is the ______.", "Nile"),
+    FillInTheBlankQuestion("The scientist who proposed the theory of relativity is ______.", "Einstein"),
+    FillInTheBlankQuestion("The country famous for the Eiffel Tower is ______.", "France"),
+    FillInTheBlankQuestion("The largest desert in the world is the ______ Desert.", "Sahara"),
+
 ]
 
 def load_user_questions():
@@ -99,7 +166,7 @@ def load_user_questions():
         return questions
     return []
 
-def get_random_questions(n=30):
+def get_random_questions(n=1):
     user_questions = load_user_questions()
     csv_questions = load_csv_questions()
     questions = SAMPLE_QUESTIONS + user_questions + csv_questions
@@ -109,4 +176,3 @@ def get_random_questions(n=30):
     random.shuffle(questions)
 
     return questions[:n]
-    # Github Actions Test
