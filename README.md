@@ -149,7 +149,7 @@ DigitalQuizApp/
 ├── quiz.db               # Questions and history database
 ├── questions.csv         # Sample questions file
 ├── questions.json        # Sample questions file
-├── dist/                 # Executable files (after building)
+├── Project_Research_Proposal.txt/                 # Proposal files (before building)
 ├── build/                # Build artifacts (after building)
 └── README.txt           # Basic readme file
 
