@@ -1,0 +1,13 @@
+type,text,choices,answer
+mcq,What is the capital of France?,"Paris;London;Berlin;Rome",Paris
+truefalse,The Earth is flat,,False
+fillblank,Python is a ____ language.,,programming
+mcq,Which one is a mammal?,"Shark;Dolphin;Octopus;Trout",Dolphin
+truefalse,2+2=4,,True
+fillblank,The largest planet in our solar system is __.,,Jupiter
+mcq,What is the capital of France?,"Paris;London;Berlin;Madrid",Paris
+mcq,Which language is used for web apps?,"Python;Java;HTML;C++",Python
+truefalse,The Earth is flat?,,False
+truefalse,Water boils at 100°C?,,True
+fillblank,Who developed the theory of relativity?,,Einstein
+fillblank,What is the chemical symbol for water?,,H2O
