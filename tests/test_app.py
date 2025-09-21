@@ -14,7 +14,7 @@ import secrets
 QUIZ_APP_FOLDER = os.path.join(os.path.dirname(os.getcwd()), "DigitalQuizApp")
 
 # Alternative absolute path based on your directory structure:
-# QUIZ_APP_FOLDER = r"C:\Users\ajayi\Desktop\Group 13(python advance cohort  28)\Group-13-Digital-Quiz-App-python-advance-cohort-28-\DigitalQuizApp"
+QUIZ_APP_FOLDER = r"C:\Users\ajayi\Desktop\Group 13(python advance cohort  28)\Group-13-Digital-Quiz-App-python-advance-cohort-28-\DigitalQuizApp"
 
 # Add the quiz app directory to Python path
 if QUIZ_APP_FOLDER not in sys.path:
@@ -978,4 +978,5 @@ if __name__ == "__main__":
     # Exit with appropriate code
     exit_code = 0 if (result.wasSuccessful() and integration_success) else 1
     print(f"\nTest suite completed with exit code: {exit_code}")
+
     sys.exit(exit_code)
