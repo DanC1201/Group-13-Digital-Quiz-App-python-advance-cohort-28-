@@ -303,6 +303,11 @@ SELECT * FROM questions;
 ```
 
 ## Contributing
+1.Igbalaye Faizal
+2.Ajayi Abdulquadri
+3.Fayomi Oluwapelumi
+4.Chizea Uchechuku Daniel
+5.Ugwu Chinanu Nestor
 
 ### Development Setup
 1. Fork the repository
