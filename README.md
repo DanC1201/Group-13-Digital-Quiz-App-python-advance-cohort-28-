@@ -143,18 +143,19 @@ question,type,options,answer
 
 ```
 DigitalQuizApp/
-├── app.py                 # Main application file
-├── test_app.py           # Test suite (if in same directory)
-├── users.db              # User database (created automatically)
-├── quiz.db               # Questions and history database
-├── questions.csv         # Sample questions file
-├── questions.json        # Sample questions file
-├── Project_Research_Proposal.txt/                 # Proposal files (before building)
-├── build/                # Build artifacts (after building)
-└── README.txt           # Basic readme file
+├── app.py                                  # Main application file
+├── test_app.py                             # Test suite (if in same directory)
+├── users.db                                # User database (created automatically)
+├── quiz.db                                 # Questions and history database
+├── questions.csv                           # Sample questions file
+├── questions.json                          # Sample questions file
+├── Project_Research_Proposal.txt/          # Proposal files (before building)
+├── pipfile                                 # for installing dependancies
+├── pipfile.lock                            # for installing dependancies
+└── README.txt                              # Basic readme file
 
 tests/
-└── test_app.py          # External test suite
+└── test_app.py                             # External test suite
 ```
 
 ## Technical Details
