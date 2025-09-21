@@ -1,6 +1,344 @@
 [
-  {"question": "What is 2+2?", "options": ["2", "3", "4", "5"], "answer": "4", "type": "multiple_choice"},
-  {"question": "Python is a snake.", "options": [], "answer": "False", "type": "true_false"},
-  {"question": "The capital of France is ____", "options": ["Paris"], "answer": "Paris", "type": "fill_blank"}
+  {
+    "question": "What is the capital of France?",
+    "options": [
+      "Paris",
+      "London",
+      "Berlin",
+      "Rome"
+    ],
+    "answer": "Paris",
+    "type": "mcq"
+  },
+  {
+    "question": "Which planet is known as the Red Planet?",
+    "options": [
+      "Earth",
+      "Mars",
+      "Jupiter",
+      "Venus"
+    ],
+    "answer": "Mars",
+    "type": "mcq"
+  },
+  {
+    "question": "Who wrote 'Romeo and Juliet'?",
+    "options": [
+      "William Shakespeare",
+      "Charles Dickens",
+      "Jane Austen",
+      "Mark Twain"
+    ],
+    "answer": "William Shakespeare",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the largest mammal?",
+    "options": [
+      "Elephant",
+      "Blue Whale",
+      "Giraffe",
+      "Hippopotamus"
+    ],
+    "answer": "Blue Whale",
+    "type": "mcq"
+  },
+  {
+    "question": "Which element has the chemical symbol 'O'?",
+    "options": [
+      "Gold",
+      "Oxygen",
+      "Silver",
+      "Iron"
+    ],
+    "answer": "Oxygen",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the hardest natural substance?",
+    "options": [
+      "Gold",
+      "Iron",
+      "Diamond",
+      "Quartz"
+    ],
+    "answer": "Diamond",
+    "type": "mcq"
+  },
+  {
+    "question": "Which country is the Great Wall located in?",
+    "options": [
+      "India",
+      "China",
+      "Japan",
+      "Russia"
+    ],
+    "answer": "China",
+    "type": "mcq"
+  },
+  {
+    "question": "How many continents are there?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "answer": "7",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the boiling point of water?",
+    "options": [
+      "100\u00b0C",
+      "90\u00b0C",
+      "80\u00b0C",
+      "120\u00b0C"
+    ],
+    "answer": "100\u00b0C",
+    "type": "mcq"
+  },
+  {
+    "question": "Who painted the Mona Lisa?",
+    "options": [
+      "Vincent Van Gogh",
+      "Leonardo da Vinci",
+      "Pablo Picasso",
+      "Claude Monet"
+    ],
+    "answer": "Leonardo da Vinci",
+    "type": "mcq"
+  },
+  {
+    "question": "Which gas do plants absorb from the atmosphere?",
+    "options": [
+      "Oxygen",
+      "Carbon Dioxide",
+      "Nitrogen",
+      "Hydrogen"
+    ],
+    "answer": "Carbon Dioxide",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the largest ocean?",
+    "options": [
+      "Atlantic",
+      "Indian",
+      "Pacific",
+      "Arctic"
+    ],
+    "answer": "Pacific",
+    "type": "mcq"
+  },
+  {
+    "question": "Which language has the most native speakers?",
+    "options": [
+      "English",
+      "Mandarin Chinese",
+      "Spanish",
+      "Hindi"
+    ],
+    "answer": "Mandarin Chinese",
+    "type": "mcq"
+  },
+  {
+    "question": "Who discovered gravity?",
+    "options": [
+      "Albert Einstein",
+      "Isaac Newton",
+      "Galileo Galilei",
+      "Nikola Tesla"
+    ],
+    "answer": "Isaac Newton",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the smallest prime number?",
+    "answer": "2",
+    "type": "fill"
+  },
+  {
+    "question": "Which country gifted the Statue of Liberty to the USA?",
+    "options": [
+      "France",
+      "England",
+      "Germany",
+      "Italy"
+    ],
+    "answer": "France",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the main ingredient in guacamole?",
+    "options": [
+      "Tomato",
+      "Avocado",
+      "Onion",
+      "Pepper"
+    ],
+    "answer": "Avocado",
+    "type": "mcq"
+  },
+  {
+    "question": "Which instrument has keys, pedals, and strings?",
+    "options": [
+      "Guitar",
+      "Piano",
+      "Drum",
+      "Flute"
+    ],
+    "answer": "Piano",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the largest desert?",
+    "options": [
+      "Sahara",
+      "Gobi",
+      "Kalahari",
+      "Arctic"
+    ],
+    "answer": "Sahara",
+    "type": "mcq"
+  },
+  {
+    "question": "Who is known as the father of computers?",
+    "options": [
+      "Charles Babbage",
+      "Alan Turing",
+      "Bill Gates",
+      "Steve Jobs"
+    ],
+    "answer": "Charles Babbage",
+    "type": "mcq"
+  },
+  {
+    "question": "Which is the longest river in the world?",
+    "options": [
+      "Amazon",
+      "Nile",
+      "Yangtze",
+      "Mississippi"
+    ],
+    "answer": "Nile",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the main language spoken in Brazil?",
+    "options": [
+      "Spanish",
+      "Portuguese",
+      "French",
+      "English"
+    ],
+    "answer": "Portuguese",
+    "type": "mcq"
+  },
+  {
+    "question": "Which vitamin is produced when a person is exposed to sunlight?",
+    "options": [
+      "Vitamin A",
+      "Vitamin B",
+      "Vitamin C",
+      "Vitamin D"
+    ],
+    "answer": "Vitamin D",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the currency of Japan?",
+    "options": [
+      "Yen",
+      "Won",
+      "Dollar",
+      "Euro"
+    ],
+    "answer": "Yen",
+    "type": "mcq"
+  },
+  {
+    "question": "Which animal is known as the King of the Jungle?",
+    "options": [
+      "Tiger",
+      "Lion",
+      "Elephant",
+      "Leopard"
+    ],
+    "answer": "Lion",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the chemical formula for water?",
+    "options": [
+      "CO2",
+      "H2O",
+      "O2",
+      "NaCl"
+    ],
+    "answer": "H2O",
+    "type": "mcq"
+  },
+  {
+    "question": "Who invented the telephone?",
+    "answer": "Alexander Graham Bell",
+    "type": "fill"
+  },
+  {
+    "question": "Which continent is Egypt in?",
+    "options": [
+      "Asia",
+      "Africa",
+      "Europe",
+      "Australia"
+    ],
+    "answer": "Africa",
+    "type": "mcq"
+  },
+  {
+    "question": "Mount Everest is the tallest mountain in the world.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "True",
+    "type": "truefalse"
+  },
+  {
+    "question": "Which organ pumps blood through the body?",
+    "options": [
+      "Liver",
+      "Heart",
+      "Lungs",
+      "Kidney"
+    ],
+    "answer": "Heart",
+    "type": "mcq"
+  },
+  {
+    "question": "What is the freezing point of water?",
+    "options": [
+      "0\u00b0C",
+      "32\u00b0C",
+      "100\u00b0C",
+      "-10\u00b0C"
+    ],
+    "answer": "0\u00b0C",
+    "type": "mcq"
+  },
+  {
+    "question": "The Nintendo Entertainment System was the first ever commercial videogame console.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": "False",
+    "type": "truefalse"
+  },
+  {
+    "question": "_______ the Lucky Rabbit was Disney's flagship character before Mickey Mouse.",
+    "answer": "Oswald",
+    "type": "fill"
+  }
 ]
 
