@@ -1,0 +1,6 @@
+[
+  {"question": "What is 2+2?", "options": ["2", "3", "4", "5"], "answer": "4", "type": "multiple_choice"},
+  {"question": "Python is a snake.", "options": [], "answer": "False", "type": "true_false"},
+  {"question": "The capital of France is ____", "options": ["Paris"], "answer": "Paris", "type": "fill_blank"}
+]
+
